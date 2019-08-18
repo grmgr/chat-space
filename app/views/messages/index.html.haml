@@ -1,0 +1,58 @@
+.wrapper
+
+  = render 'shared/side-header'
+
+  .chat
+    .header
+      .left-header
+        .left-header__group-name
+          groupname
+        %ul.left-header__members
+          Member:
+          %ls.member 
+            menbername1
+          %ls.member
+            menbername2
+          %ls.member
+            menbername3
+      .right-header
+        .right-header__button
+          Edit
+    .messages
+      .message
+        .upper-message
+          .upper-message__username
+            menbername1
+          .upper-message__date
+            2019.08.17
+        .sub-message
+          .sub-message__content
+            message hello!
+      .message
+        .upper-message
+          .upper-message__username
+            menbername1
+          .upper-message__date
+            2019.08.17
+        .sub-message
+          .sub-message__content
+            message hello!
+      .message
+        .upper-message
+          .upper-message__username
+            menbername1
+          .upper-message__date
+            2019.08.17
+        .sub-message
+          .sub-message__content
+            message hello!
+            
+
+    .form
+      %form
+        %input.form__message
+        .form__mask
+          %label.form__mask__image
+            = fa_icon 'picture-o', class: 'icon'
+            %input.hidden{type: 'file'}
+        %input.form__submit{type: 'submit', value: 'send'}

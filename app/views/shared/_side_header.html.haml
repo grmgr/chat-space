@@ -1,5 +1,6 @@
 .side-header
   .header
+
     %h3.header__name
       = current_user.name
     %ul.header__lists
@@ -16,4 +17,4 @@
           .group__name
             = group.name
           .group__message
-            メッセージはまだありません。
+            = group.show_last_message

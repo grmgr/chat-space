@@ -11,12 +11,12 @@ $(function() {
                       ${message.date}
                     </p>
                   </div>
-                  <p class="sub-message">
-                    <div class="sub-message">
-                    ${content}
-                    </div>
-                    ${img}
-                  </p>
+                  <div class="sub-message">
+                    <p class="sub-message__content">
+                      ${content}
+                    </p>
+                      ${img}
+                  </div>
                 </div>`
   return html;
   }
@@ -39,8 +39,7 @@ $(function() {
     .done(function(data){
       var html = buildHTML(data);
       $('.messages').append(html);
-      $('.form__message').val('');
-      $('.form__submit').prop('disabled', false);
+      $('#new_message')[0].reset();
 
         var target = $('.message').last();
         var position = target.offset().top + $('.messages').scrollTop();

@@ -40,6 +40,7 @@ $(function() {
       var html = buildHTML(data);
       $('.messages').append(html);
       $('#new_message')[0].reset();
+      $('.form__submit').prop('disabled', false);
 
         var target = $('.message').last();
         var position = target.offset().top + $('.messages').scrollTop();

@@ -8,13 +8,15 @@
           .group
             = @group.name
         .left-header__members
-          Member:
+          Member：
           .members
             - @members.each do |member|
               = member.name
       .right-header
-        .right-header__button
-          Edit
+        = link_to edit_group_path(@group.id) do
+          .right-header__button
+            = 'Edit'
+            
     .messages
       = render @messages
 

@@ -40,7 +40,7 @@ $(document).on('turbolinks:load',function(){
         })
       }
       else {
-        var html = appendNot("一致するワードがありません")
+        var html = appendNot("一致するワードがありません");
         $(`#user-search-result`).append(html);
       }
       })
@@ -51,7 +51,7 @@ $(document).on('turbolinks:load',function(){
 
     $(document).on("click",".user-search-add", function(users){
         var id = $(this).data('user-id');
-        var name = $(this).data("user-name")
+        var name = $(this).data("user-name");
         addUser(id,name);
         $(this).parent().remove();
     })

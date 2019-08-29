@@ -16,7 +16,7 @@ $(document).on('turbolinks:load', function() {
                       ${content}
                     </p>
                       ${img}
-                  </div>ß
+                  </div>
                 </div>`
   return html;
   }

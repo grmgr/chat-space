@@ -56,7 +56,6 @@ $(document).on('turbolinks:load', function() {
     var reloadMessages = function () {
       if (window.location.href.match(/\/groups\/\d+\/messages/)){
         var last_message_id = $('.message:last').data("message-id");
-        // var group_id = $(".group").data("group-id");
         console.log(last_message_id); 
 
         $.ajax({ 
@@ -66,7 +65,6 @@ $(document).on('turbolinks:load', function() {
           data: {last_id: last_message_id} 
         })
         .done(function (messages) { 
-          // console.log(messages);
           var insertHTML = '';
           if(messages.length != 0){
             messages.forEach(function (message) {
@@ -77,7 +75,6 @@ $(document).on('turbolinks:load', function() {
         }
         })
         .fail(function () {
-          // console.log('error');
           alert('自動更新に失敗しました');
         });
       };

@@ -1,16 +1,11 @@
 # config valid only for current version of Capistrano
 
 lock '3.11.1'
-
 set :application, 'chat-space'
-
 set :repo_url,  'git@github.com:grmgr/chat-space.git'
-
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
-
 set :rbenv_type, :user
 set :rbenv_ruby, '2.5.1'
-
 set :ssh_options, auth_methods: ['publickey'],
                   keys: ['~/.ssh/keygrmgr.pem']
 
@@ -25,3 +20,10 @@ namespace :deploy do
     invoke 'unicorn:restart'
   end
 end
+
+set :default_env, {
+  rbenv_root: "/usr/local/rbenv",
+  path: "/usr/local/rbenv/shims:/usr/local/rbenv/bin:$PATH",
+  AWS_ACCESS_KEY_ID: ENV["AWS_ACCESS_KEY_ID"],
+  AWS_SECRET_ACCESS_KEY: ENV["AWS_SECRET_ACCESS_KEY"]
+}

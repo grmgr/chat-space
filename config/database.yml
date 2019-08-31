@@ -50,17 +50,18 @@ test:
 production:
   <<: *default
   database: chat-space_production
-  username: root
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  socket: /var/lib/mysql/mysql.sock
+  username: chat-space
+  password: <%= ENV['CHAT-SPACE_DATABASE_PASSWORD'] %>
+
 
 development:
-  secret_key_base: ~~~~~~~~
+  secret_key_base: c1baf101092e1b1a4642af9bda77bf770c89ef0dfe97e24e284508f36010e9f72e2b0fad0b543f2c17454eda4d7ba6725462f2cf98f788f8545dcb28d91a797c
   aws_access_key_id: <%= ENV["AWS_ACCESS_KEY_ID"] %>
   aws_secret_access_key: <%= ENV["AWS_SECRET_ACCESS_KEY"] %>
 
 test:
-  secret_key_base: ~~~~~~~~
+  secret_key_base: db194f42e63d07dfe78f4d009f92a08ff8530c4384965a00f25862e38550d68ae88e7dfad6854d5bf8cd6dbc3593b6ca8b35017420ae16fd35e584002eb453a6
+
 
 production:
   secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>

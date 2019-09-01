@@ -1,32 +1,30 @@
-$(document).on('turbolinks:load', function() {
+$(function () {
+
   function buildHTML(message) {
-    var content = message.content ? `${ message.content }` : ``;
-    var img = (message.image) ? `<img src= "${ message.image }">` : ``;
-    var html = `<div class="message" data-id="${message.id}">
-                  <div class="upper-message">
-                    <p class="upper-message__username">
-                      ${message.user_name}
-                    </p>
-                    <p class="upper-message__date">
-                      ${message.date}
-                    </p>
-                  </div>
-                  <div class="sub-message">
-                    <p class="sub-message__content">
-                      ${content}
-                    </p>
-                      ${img}
-                  </div>
-                </div>`
-  return html;
+    image = (message.image) ? `<img class= "lower-message__image" src=${message.image} >` : "";  
+    var html = `<div class="message" data-message-id="${message.id}">
+          <div class="upper-message">
+            <div class="upper-message__user-name">
+              ${message.user_name}
+            </div>
+            <div class="upper-message__date">
+              ${message.date}
+            </div>
+          </div>
+          <div class="sub-meesage">
+            <p class="sub-message__content">
+              ${message.content}
+            </p>
+            ${image}
+          </div>
+        </div>`
+    return html;
   }
-
-  // メッセージ送信非同期
-  $('#new_message').on('submit', function(e){
+  $('#new_message').on('submit', function (e) {
     e.preventDefault();
-
     var formData = new FormData(this);
-    var url = $(this).attr('action')
+    var url = $(this).attr('action') 
+
     $.ajax({
       url: url,
       type: "POST",
@@ -35,48 +33,40 @@ $(document).on('turbolinks:load', function() {
       processData: false,
       contentType: false
     })
-
-    .done(function(data){
+    .done(function (data) {
       var html = buildHTML(data);
       $('.messages').append(html);
-      $('#new_message')[0].reset();
+      $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
       $('.form__submit').prop('disabled', false);
-        var target = $('.message').last();
-        var position = target.offset().top + $('.messages').scrollTop();
-        $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight});
+      $('form')[0].reset();
     })
-    .fail(function(){
-      alert('メッセージを入力してください')
-      $('.form__submit').prop('disabled', false);
+    .fail(function () {
+      alert('Please Type a Message!');
     })
-  })
+  })  
+  var reloadMessages = function () {
+    if (window.location.href.match(/\/groups\/\d+\/messages/)){
+      var last_message_id = $('.message:last').data("message-id");
+      var group_id = $(".group").data("group-id");
 
-  // 自動更新
-  $(function(){
-    var reloadMessages = function () {
-      if (window.location.href.match(/\/groups\/\d+\/messages/)){
-        var last_message_id = $('.message:last').data("message-id");
-        $.ajax({ 
-          url: "api/messages", 
-          type: 'get', 
-          dataType: 'json', 
-          data: {last_id: last_message_id} 
-        })
-        .done(function (messages) { 
-          var insertHTML = '';
-          if(messages.length != 0){
-            messages.forEach(function (message) {
-            insertHTML = buildHTML(message); 
-            $('.messages').append(insertHTML);
-          })
+      $.ajax({
+        url: "api/messages",
+        type: 'get',
+        dataType: 'json',
+        data: {last_id: last_message_id}
+      })
+      .done(function (messages) {
+        var insertHTML = '';
+        messages.forEach(function (message) {
+          insertHTML = buildHTML(message);
+          $('.messages').append(insertHTML);
           $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
-        }
         })
-        .fail(function () {
-          alert('自動更新に失敗しました');
-        });
-      };
-    };
-    setInterval(reloadMessages, 5000);
-  });
-})
+      })
+      .fail(function () {
+        alert('自動更新に失敗しました');
+      });
+    }
+  };
+  setInterval(reloadMessages, 5000);
+});
